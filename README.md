@@ -5,7 +5,8 @@ This program requires the following to run:
 - Latest Version of Python from [here](https://www.python.org/)
 - PyAutoGui package
 - Keyboard package
-The latter two can be installed by running the following command after cloning the repo:
+- Python-Opencv
+- The latter three can be installed by running the following command after cloning the repo:
 ```pip install -r requirements.txt```
 
 ## Guide to use
