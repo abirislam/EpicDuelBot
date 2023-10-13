@@ -15,10 +15,21 @@ def useSkillEnemy(skill):
     pyautogui.click(534, 446)
     time.sleep(7)
 
+def checkForExitButton(button):
+    menuButtons = pyautogui.locateOnScreen('icons/menubuttons.png', confidence=0.8)
+
+    for position in button:
+        if menuButtons == None:
+            pyautogui.click(position)
+            time.sleep(0.5)
+        else:
+            return False
+
+
 
 # Search for a match first
 def searchForBattle(searching):
-    juggIcon = pyautogui.locateOnScreen('icons/juggernaut.png', confidence=0.8)
+    juggIcon = pyautogui.locateOnScreen('icons/juggernaut.png', confidence=0.7)
     if juggIcon != None:
         print("Starting Juggernaut Mode")
         pyautogui.click(juggIcon)
@@ -45,8 +56,6 @@ def searchingCheck(searching):
 # Check if its our turn, use a skill, wait
 # Always targets left enemy first
 def battling(battleStatus, wins, losses):
-    print("Beginning battle phase")
-
     # 1516 x 583, 201, 387
     # skill variables
     botspecial = pyautogui.locateOnScreen('skills/botspecial.png', confidence=0.8, region=(201, 387, 1516, 583))
@@ -58,12 +67,13 @@ def battling(battleStatus, wins, losses):
 
 
     # all icons
-    player = pyautogui.locateOnScreen('icons/player.png', confidence=0.8)
+    # player = pyautogui.locateOnScreen('icons/player.png', confidence=0.8)
     victory = pyautogui.locateOnScreen('icons/victory.png', confidence=0.8)
     defeat = pyautogui.locateOnScreen('icons/defeat.png', confidence=0.8)
-    myturn = pyautogui.locateOnScreen('icons/myturn.png', confidence=0.85)
+    myTurn = pyautogui.locateOnScreen('icons/myturn.png', confidence=0.9)
+    battleDrop = pyautogui.locateOnScreen('icons/battledrop.png', confidence=0.8)
     
-    if myturn:
+    if myTurn:
         print("Watashi no turn, draw")
         if reflex != None:
             print("Using skill reflex")
@@ -84,6 +94,10 @@ def battling(battleStatus, wins, losses):
             print("Using skill basic strike")
             useSkillEnemy(strike)
 
+    if battleDrop:
+        pyautogui.click(battleDrop)
+        print("Claimed battle drop")
+
     if victory:
         wins += 1
         print("Wins: " + str(wins))
@@ -100,34 +114,25 @@ def battling(battleStatus, wins, losses):
 
 # Look for the x icons 
 def exitting(exitStatus):
-    juggIcon = pyautogui.locateOnScreen('icons/juggernaut.png', confidence=0.8)
     exitbutton = pyautogui.locateAllOnScreen('icons/exiticon1.png', confidence=0.55, grayscale=True)
-    for position in exitbutton:
-        pyautogui.click(position)
-
-    if juggIcon != None:
-        print("Jugg icon found")
-        exitStatus = False
-        return exitStatus
-
     exitbutton2 = pyautogui.locateAllOnScreen('icons/exiticon2.png', confidence=0.55, grayscale=True)
-    for position2 in exitbutton2:
-        pyautogui.click(position2)
-    if juggIcon != None:
-        print("Jugg icon found")
-        exitStatus = False
-        return exitStatus
-
     exitbutton3 = pyautogui.locateAllOnScreen('icons/exiticon3.png', confidence=0.55, grayscale=True)
-    for position3 in exitbutton3:
-        pyautogui.click(position3)
-    if juggIcon != None:
-        print("Jugg icon found")
+
+    if checkForExitButton(exitbutton) == False:
+        print("Found exit button and exited")
         exitStatus = False
         return exitStatus
-
-    exitStatus = False
-    return exitStatus
+    elif checkForExitButton(exitbutton2) == False:
+        print("Found exit button and exited")
+        exitStatus = False
+        return exitStatus
+    elif checkForExitButton(exitbutton3) == False:
+        print("Found exit button and exited")
+        exitStatus = False
+        return exitStatus
+    else:
+        print("Couldn't find exit button, terminating program.")
+        exit
 
 def main():
     wins = 0
@@ -148,8 +153,11 @@ def main():
 
         battlingStatus = True
 
+        print("Starting battle")
+
         while battling(battlingStatus, wins, losses):
             print("Still battling")
+            time.sleep(1)
 
         print("Exitting battle now")
 
