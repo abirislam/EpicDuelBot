@@ -1,10 +1,3 @@
-# EpicDuel Juggernaut Bot for Blood Mage by Blade
-# This bot assumes a full tech build;
-# Max Bloodlust, Max Energy Parasite, 5 in Maelstrom, 3 in Reflex Boost
-# Also assumes ED to be full screen on the primary window
-# You must also change the player.png to your player.
-
-
 import pyautogui
 import time
 import keyboard
