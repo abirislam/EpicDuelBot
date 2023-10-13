@@ -1,7 +1,7 @@
 import pyautogui
 import time
 import keyboard
-
+import stats
 
 def useSkillSelf(skill):
     pyautogui.click(skill)
@@ -24,7 +24,6 @@ def checkForExitButton(button):
             time.sleep(0.5)
         else:
             return False
-
 
 
 # Search for a match first
@@ -52,14 +51,13 @@ def searchingCheck(searching):
     return searching
 
 
-
 # Check if its our turn, use a skill, wait
 # Always targets left enemy first
-def battling(battleStatus, wins, losses):
+def battling(battleStatus, myStats):
     # 1516 x 583, 201, 387
     # skill variables
     botspecial = pyautogui.locateOnScreen('skills/botspecial.png', confidence=0.8, region=(201, 387, 1516, 583))
-    maelstrom = pyautogui.locateOnScreen('skills/maelstrom.png', confidence=0.8, region=(201, 387, 1516, 583))
+    maelstrom = pyautogui.locateOnScreen('skills/maelstrom.png', confidence=0.85, region=(201, 387, 1516, 583))
     plasma = pyautogui.locateOnScreen('skills/plasmacannon.png', confidence=0.8, region=(201, 387, 1516, 583))
     reflex = pyautogui.locateOnScreen('skills/reflexboost.png', confidence=0.7, region=(201, 387, 1516, 583))
     strike = pyautogui.locateOnScreen('skills/strike.png', confidence=0.6, region=(201, 387, 1516, 583))
@@ -99,12 +97,12 @@ def battling(battleStatus, wins, losses):
         print("Claimed battle drop")
 
     if victory:
-        wins += 1
-        print("Wins: " + str(wins))
+        myStats.wins += 1
+        myStats.viewStats()
         battleStatus = False
     elif defeat:
-        losses += 1
-        print("Losses: " + str(losses))
+        myStats.losses += 1
+        myStats.viewStats()
         battleStatus = False
     else:
         battleStatus = True
@@ -135,8 +133,7 @@ def exitting(exitStatus):
         exit
 
 def main():
-    wins = 0
-    losses = 0
+    myStats = stats.Stats(0, 0)
     searchingStatus = False
     battlingStatus = False
     exitStatus = False
@@ -155,8 +152,8 @@ def main():
 
         print("Starting battle")
 
-        while battling(battlingStatus, wins, losses):
-            print("Still battling")
+        while battling(battlingStatus, myStats):
+            print("Still opponent's turn")
             time.sleep(1)
 
         print("Exitting battle now")
