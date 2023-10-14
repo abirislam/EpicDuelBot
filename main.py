@@ -24,6 +24,14 @@ def checkForExitButton(button):
             time.sleep(0.5)
         else:
             return False
+        
+def checkForMisclickAfterExit():
+    defaultExit = pyautogui.locateOnScreen('icons/defaultexiticon.png', confidence=0.8)
+
+    if defaultExit != None:
+        pyautogui.click(defaultExit)
+        time.sleep(0.5)
+
 
 
 # Search for a match first
@@ -131,6 +139,8 @@ def exitting(exitStatus):
     else:
         print("Couldn't find exit button, terminating program.")
         exit
+
+    checkForMisclickAfterExit()
 
 def main():
     myStats = stats.Stats(0, 0)
