@@ -145,23 +145,23 @@ def main():
 
     while keyboard.is_pressed('q') == False:
 
-        # if not searchingStatus:
-        #     searchForBattle(searchingStatus)
+        if not searchingStatus:
+            searchForBattle(searchingStatus)
 
-        # searchingStatus = True
+        searchingStatus = True
 
-        # while searchingCheck(searchingStatus):
-        #     print("Searching for a battle still")
+        while searchingCheck(searchingStatus):
+            print("Searching for a battle still")
 
-        # battlingStatus = True
+        battlingStatus = True
 
-        # print("Starting battle")
+        print("Starting battle")
 
-        # while battling(battlingStatus, myStats):
-        #     print("Still opponent's turn")
-        #     time.sleep(1)
+        while battling(battlingStatus, myStats):
+            print("Still opponent's turn")
+            time.sleep(1)
 
-        # print("Exitting battle now")
+        print("Exitting battle now")
 
         exitStatus = True
 
