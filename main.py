@@ -17,21 +17,17 @@ def useSkillEnemy(skill):
 
 def checkForExitButton(button):
     menuButtons = pyautogui.locateOnScreen('icons/menubuttons.png', confidence=0.8)
+    defaultExit = pyautogui.locateOnScreen('icons/defaultexiticon.png', confidence=0.8)
 
     for position in button:
         if menuButtons == None:
             pyautogui.click(position)
             time.sleep(0.5)
+            if defaultExit != None:
+                pyautogui.click(defaultExit)
+                time.sleep(0.5)
         else:
             return False
-        
-def checkForMisclickAfterExit():
-    defaultExit = pyautogui.locateOnScreen('icons/defaultexiticon.png', confidence=0.8)
-
-    if defaultExit != None:
-        pyautogui.click(defaultExit)
-        time.sleep(0.5)
-
 
 
 # Search for a match first
@@ -137,10 +133,9 @@ def exitting(exitStatus):
         exitStatus = False
         return exitStatus
     else:
-        print("Couldn't find exit button, terminating program.")
+        print("Couldn't find exit button, terminating")
         exit
 
-    checkForMisclickAfterExit()
 
 def main():
     myStats = stats.Stats(0, 0)
@@ -150,23 +145,23 @@ def main():
 
     while keyboard.is_pressed('q') == False:
 
-        if not searchingStatus:
-            searchForBattle(searchingStatus)
+        # if not searchingStatus:
+        #     searchForBattle(searchingStatus)
 
-        searchingStatus = True
+        # searchingStatus = True
 
-        while searchingCheck(searchingStatus):
-            print("Searching for a battle still")
+        # while searchingCheck(searchingStatus):
+        #     print("Searching for a battle still")
 
-        battlingStatus = True
+        # battlingStatus = True
 
-        print("Starting battle")
+        # print("Starting battle")
 
-        while battling(battlingStatus, myStats):
-            print("Still opponent's turn")
-            time.sleep(1)
+        # while battling(battlingStatus, myStats):
+        #     print("Still opponent's turn")
+        #     time.sleep(1)
 
-        print("Exitting battle now")
+        # print("Exitting battle now")
 
         exitStatus = True
 
