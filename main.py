@@ -12,7 +12,7 @@ def useSkillEnemy(skill):
     pyautogui.click(skill)
     time.sleep(0.5)
     pyautogui.click(408, 547)
-    pyautogui.click(534, 446)
+    pyautogui.click(540, 446)
     time.sleep(7)
 
 def checkForExitButton(button):
@@ -22,10 +22,8 @@ def checkForExitButton(button):
     for position in button:
         if menuButtons == None:
             pyautogui.click(position)
-            time.sleep(0.5)
             if defaultExit != None:
                 pyautogui.click(defaultExit)
-                time.sleep(0.5)
         else:
             return False
 
@@ -35,7 +33,8 @@ def searchForBattle(searching):
     juggIcon = pyautogui.locateOnScreen('icons/juggernaut.png', confidence=0.7)
     if juggIcon != None:
         print("Starting Juggernaut Mode")
-        pyautogui.click(juggIcon)
+        for x in range(4):
+            pyautogui.click(juggIcon)
         searching = True
         time.sleep(0.5)
     else:
@@ -119,6 +118,7 @@ def exitting(exitStatus):
     exitbutton = pyautogui.locateAllOnScreen('icons/exiticon1.png', confidence=0.55, grayscale=True)
     exitbutton2 = pyautogui.locateAllOnScreen('icons/exiticon2.png', confidence=0.55, grayscale=True)
     exitbutton3 = pyautogui.locateAllOnScreen('icons/exiticon3.png', confidence=0.55, grayscale=True)
+    exitbutton4 = pyautogui.locateAllOnScreen('icons/exiticon4.png', confidence=0.55, grayscale=True)
 
     if checkForExitButton(exitbutton) == False:
         print("Found exit button and exited")
@@ -129,6 +129,10 @@ def exitting(exitStatus):
         exitStatus = False
         return exitStatus
     elif checkForExitButton(exitbutton3) == False:
+        print("Found exit button and exited")
+        exitStatus = False
+        return exitStatus
+    elif checkForExitButton(exitbutton4) == False:
         print("Found exit button and exited")
         exitStatus = False
         return exitStatus
@@ -169,6 +173,8 @@ def main():
             print("Trying to exit")
 
         searchingStatus = False
+
+        time.sleep(5)
 
 if __name__ == "__main__":
     main()
