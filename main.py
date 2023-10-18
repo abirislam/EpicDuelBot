@@ -6,14 +6,14 @@ import stats
 def useSkillSelf(skill):
     pyautogui.click(skill)
     pyautogui.click(534, 446)
-    time.sleep(7)
+    time.sleep(5)
 
 def useSkillEnemy(skill):
     pyautogui.click(skill)
     time.sleep(0.5)
     pyautogui.click(408, 547)
     pyautogui.click(540, 446)
-    time.sleep(7)
+    time.sleep(5)
 
 def checkForExitButton(button):
     menuButtons = pyautogui.locateOnScreen('icons/menubuttons.png', confidence=0.8)
@@ -32,23 +32,23 @@ def checkForExitButton(button):
 def searchForBattle(searching):
     juggIcon = pyautogui.locateOnScreen('icons/juggernaut.png', confidence=0.7)
     if juggIcon != None:
-        print("Starting Juggernaut Mode")
+        # print("Starting Juggernaut Mode")
         for x in range(4):
             pyautogui.click(juggIcon)
         searching = True
         time.sleep(0.5)
     else:
-        print("Juggernaut icon not found")
+        # print("Juggernaut icon not found")
         time.sleep(0.5)
     return searching
     
 def searchingCheck(searching):
     searchIcon = pyautogui.locateOnScreen('icons/searching.png', confidence=0.9)
     if searchIcon:
-        time.sleep(10)
+        time.sleep(5)
         searching = True
     else:
-        print("Found a battle")
+        # print("Found a battle")
         searching = False
 
     return searching
@@ -63,9 +63,8 @@ def battling(battleStatus, myStats):
     maelstrom = pyautogui.locateOnScreen('skills/maelstrom.png', confidence=0.85, region=(201, 387, 1516, 583))
     plasma = pyautogui.locateOnScreen('skills/plasmacannon.png', confidence=0.8, region=(201, 387, 1516, 583))
     reflex = pyautogui.locateOnScreen('skills/reflexboost.png', confidence=0.7, region=(201, 387, 1516, 583))
-    strike = pyautogui.locateOnScreen('skills/strike.png', confidence=0.6, region=(201, 387, 1516, 583))
+    strike = pyautogui.locateOnScreen('skills/strike.png', confidence=0.8, region=(201, 387, 1516, 583))
     energyparasite = pyautogui.locateOnScreen('skills/energyparasite.png', confidence=0.8, region=(201, 387, 1516, 583))
-
 
     # all icons
     # player = pyautogui.locateOnScreen('icons/player.png', confidence=0.8)
@@ -75,29 +74,29 @@ def battling(battleStatus, myStats):
     battleDrop = pyautogui.locateOnScreen('icons/battledrop.png', confidence=0.8)
     
     if myTurn:
-        print("Watashi no turn, draw")
+        # print("Watashi no turn, draw")
         if reflex != None:
-            print("Using skill reflex")
+            # print("Using skill reflex")
             useSkillSelf(reflex)
         elif plasma != None:
-            print("Using skill plasma cannon")
+            # print("Using skill plasma cannon")
             useSkillEnemy(plasma)
         elif botspecial != None:
-            print("Using skill bot special")
+            # print("Using skill bot special")
             useSkillEnemy(botspecial)
         elif energyparasite != None:
-            print("Using energy parasite")
+            # print("Using energy parasite")
             useSkillEnemy(energyparasite)
         elif maelstrom != None:
-            print("Using skill maelstrom")
+            # print("Using skill maelstrom")
             useSkillEnemy(maelstrom)
         elif strike != None:
-            print("Using skill basic strike")
+            # print("Using skill basic strike")
             useSkillEnemy(strike)
 
     if battleDrop:
         pyautogui.click(battleDrop)
-        print("Claimed battle drop")
+        # print("Claimed battle drop")
 
     if victory:
         myStats.wins += 1
@@ -121,23 +120,23 @@ def exitting(exitStatus):
     exitbutton4 = pyautogui.locateAllOnScreen('icons/exiticon4.png', confidence=0.55, grayscale=True)
 
     if checkForExitButton(exitbutton) == False:
-        print("Found exit button and exited")
+        # print("Found exit button and exited")
         exitStatus = False
         return exitStatus
     elif checkForExitButton(exitbutton2) == False:
-        print("Found exit button and exited")
+        # print("Found exit button and exited")
         exitStatus = False
         return exitStatus
     elif checkForExitButton(exitbutton3) == False:
-        print("Found exit button and exited")
+        # print("Found exit button and exited")
         exitStatus = False
         return exitStatus
     elif checkForExitButton(exitbutton4) == False:
-        print("Found exit button and exited")
+        # print("Found exit button and exited")
         exitStatus = False
         return exitStatus
     else:
-        print("Couldn't find exit button, terminating")
+        # print("Couldn't find exit button, terminating")
         exit
 
 
@@ -155,22 +154,24 @@ def main():
         searchingStatus = True
 
         while searchingCheck(searchingStatus):
-            print("Searching for a battle still")
+            # print("Searching for a battle still")
+            pass
 
         battlingStatus = True
 
-        print("Starting battle")
+        # print("Starting battle")
 
         while battling(battlingStatus, myStats):
-            print("Still opponent's turn")
+            # print("Still opponent's turn")
             time.sleep(1)
 
-        print("Exitting battle now")
+        # print("Exitting battle now")
 
         exitStatus = True
 
         while exitting(exitStatus):
-            print("Trying to exit")
+            # print("Trying to exit")
+            pass
 
         searchingStatus = False
 
