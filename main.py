@@ -22,15 +22,20 @@ def checkForDefaultExit():
         pyautogui.click(defaultExit)
 
 def checkForExitButton(button):
-    menuButtons = pyautogui.locateOnScreen('icons/menubuttons.png', confidence=0.8)
+    juggIcon = pyautogui.locateOnScreen('icons/juggernaut.png', confidence=0.7)
 
     for position in button:
-        if menuButtons == None:
+        if juggIcon == None:
             pyautogui.click(position)
             checkForDefaultExit()
         else:
             return False
         
+def checkForJuggIcon():
+    juggIcon = pyautogui.locateOnScreen('icons/juggernaut.png', confidence=0.7)
+
+    if juggIcon != None:
+        return True
 
 # Search for a match first
 def searchForBattle(searching):
@@ -43,7 +48,7 @@ def searchForBattle(searching):
     else:
         time.sleep(0.5)
     return searching
-    
+
 def searchingCheck(searching):
     searchIcon = pyautogui.locateOnScreen('icons/searching.png', confidence=0.9)
     if searchIcon:
@@ -60,17 +65,12 @@ def searchingCheck(searching):
 def battling(battleStatus, myStats):
     # 1516 x 583, 201, 387
     # skill variables
-    botspecial = pyautogui.locateOnScreen('skills/botspecial.png', confidence=0.8, region=(201, 387, 1516, 583))
-    maelstrom = pyautogui.locateOnScreen('skills/maelstrom.png', confidence=0.85, region=(201, 387, 1516, 583))
-    plasma = pyautogui.locateOnScreen('skills/plasmacannon.png', confidence=0.8, region=(201, 387, 1516, 583))
-    reflex = pyautogui.locateOnScreen('skills/reflexboost.png', confidence=0.7, region=(201, 387, 1516, 583))
-    strike = pyautogui.locateOnScreen('skills/strike.png', confidence=0.8, region=(201, 387, 1516, 583))
-    energyparasite = pyautogui.locateOnScreen('skills/energyparasite.png', confidence=0.8, region=(201, 387, 1516, 583))
-    aux = pyautogui.locateOnScreen('skills/aux.png', confidence=0.8, region=(201, 387, 1516, 583))
-    sidearm = pyautogui.locateOnScreen('skills/sidearm.png', confidence=0.7, region=(201, 387, 1516, 583))
-    multi = pyautogui.locateOnScreen('skills/multi.png', confidence=0.9, region=(201, 387, 1516, 583))
-    firebolt = pyautogui.locateOnScreen('skills/firebolt.png', confidence=0.9, region=(201, 387, 1516, 583))
-
+    botspecial = pyautogui.locateOnScreen('skills/bh/botspecial.png', confidence=0.8, region=(201, 387, 1516, 583))
+    reflex = pyautogui.locateOnScreen('skills/bh/reflex.png', confidence=0.85, region=(201, 387, 1516, 583))
+    strike = pyautogui.locateOnScreen('skills/bh/strike.png', confidence=0.8, region=(201, 387, 1516, 583))
+    aux = pyautogui.locateOnScreen('skills/bh/bazooka.png', confidence=0.8, region=(201, 387, 1516, 583))
+    multi = pyautogui.locateOnScreen('skills/bh/multi.png', confidence=0.8, region=(201, 387, 1516, 583))
+    emp = pyautogui.locateOnScreen('skills/bh/emp.png', confidence=0.8, region=(201, 387, 1516, 583))
 
     # all icons
     # player = pyautogui.locateOnScreen('icons/player.png', confidence=0.8)
@@ -78,18 +78,19 @@ def battling(battleStatus, myStats):
     defeat = pyautogui.locateOnScreen('icons/defeat.png', confidence=0.8)
     myTurn = pyautogui.locateOnScreen('icons/myturn.png', confidence=0.9)
     battleDrop = pyautogui.locateOnScreen('icons/battledrop.png', confidence=0.8)
-    
+
+    # Skill Priority: Multi > Firebolt > Robot > 
     if myTurn:
-        if sidearm != None:
-            useSkillSelf(sidearm)
+        if reflex != None:
+            useSkillSelf(reflex)
         elif multi != None:
             useSkillEnemy(multi)
         elif botspecial != None:
             useSkillEnemy(botspecial)
+        elif emp != None:
+            useSkillEnemy(emp)
         elif aux != None:
             useSkillEnemy(aux)
-        elif energyparasite != None:
-            useSkillEnemy(energyparasite)
         elif strike != None:
             useSkillEnemy(strike)
 
@@ -116,6 +117,11 @@ def exitting(exitStatus):
     exitbutton2 = pyautogui.locateAllOnScreen('icons/exiticon2.png', confidence=0.55, grayscale=True)
     exitbutton3 = pyautogui.locateAllOnScreen('icons/exiticon3.png', confidence=0.55, grayscale=True)
     exitbutton4 = pyautogui.locateAllOnScreen('icons/exiticon4.png', confidence=0.55, grayscale=True)
+    exitbutton5 = pyautogui.locateAllOnScreen('icons/exiticon5.png', confidence=0.55, grayscale=True)
+
+    if checkForJuggIcon():
+        exitStatus = False
+        return exitStatus
 
     if checkForExitButton(exitbutton) == False:
         exitStatus = False
@@ -129,8 +135,12 @@ def exitting(exitStatus):
     elif checkForExitButton(exitbutton4) == False:
         exitStatus = False
         return exitStatus
+    elif checkForExitButton(exitbutton5) == False:
+        exitStatus = False
+        return exitStatus
     else:
-        exit
+        exitStatus = False
+        return exitStatus
 
 def checkForMiniWarIcons():
     miniWarIcon = pyautogui.locateOnScreen('icons/miniwartarget1.png', confidence=0.7)
@@ -209,7 +219,7 @@ def main():
 
         searchingStatus = False
 
-        time.sleep(5)
+        time.sleep(3)
         
         if (myStats.wins % 10 == 0) and (myStats.wins != 0):
             dropAllWarBombs()
