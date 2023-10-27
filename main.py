@@ -11,7 +11,7 @@ def useSkillSelf(skill):
 def useSkillEnemy(skill):
     pyautogui.click(skill)
     time.sleep(0.5)
-    pyautogui.click(408, 547)
+    pyautogui.click(384, 738)
     pyautogui.click(540, 446)
     time.sleep(5)
 
@@ -19,6 +19,11 @@ def checkForDefaultExit():
     defaultExit = pyautogui.locateOnScreen('icons/defaultexiticon.png', confidence=0.8)
     if defaultExit != None:
         pyautogui.click(defaultExit)
+
+def checkForPopupExit():
+    popup = pyautogui.locateOnScreen('icons/popupexit.png', confidence=0.8)
+    if popup != None:
+        pyautogui.click(popup)
 
 def checkForJuggIcon():
     juggIcon = pyautogui.locateOnScreen('icons/juggernaut.png', confidence=0.7)
@@ -62,12 +67,6 @@ def searchingCheck(searching):
 def battling(battleStatus, myStats):
     # 1516 x 583, 201, 387
     # skill variables
-    botspecial = pyautogui.locateOnScreen('skills/bh/botspecial.png', confidence=0.8, region=(201, 387, 1516, 583))
-    reflex = pyautogui.locateOnScreen('skills/bh/reflex.png', confidence=0.85, region=(201, 387, 1516, 583))
-    strike = pyautogui.locateOnScreen('skills/bh/strike.png', confidence=0.8, region=(201, 387, 1516, 583))
-    aux = pyautogui.locateOnScreen('skills/bh/bazooka.png', confidence=0.8, region=(201, 387, 1516, 583))
-    multi = pyautogui.locateOnScreen('skills/bh/multi.png', confidence=0.8, region=(201, 387, 1516, 583))
-    emp = pyautogui.locateOnScreen('skills/bh/emp.png', confidence=0.85, region=(201, 387, 1516, 583))
 
     # all icons
     # player = pyautogui.locateOnScreen('icons/player.png', confidence=0.8)
@@ -78,21 +77,36 @@ def battling(battleStatus, myStats):
 
     # Skill Priority: Multi > Firebolt > Robot > 
     if myTurn:
-        if multi != None:
-            useSkillSelf(multi)
-        elif reflex != None:
-            useSkillEnemy(reflex)
+        botspecial = pyautogui.locateOnScreen('skills/botspecial.png', confidence=0.8, region=(201, 387, 1516, 583))
+        reflex = pyautogui.locateOnScreen('skills/bm/reflexboost.png', confidence=0.85, region=(201, 387, 1516, 583))
+        strike = pyautogui.locateOnScreen('skills/strike.png', confidence=0.8, region=(201, 387, 1516, 583))
+        # aux = pyautogui.locateOnScreen('skills/bazooka.png', confidence=0.8, region=(201, 387, 1516, 583))
+        multi = pyautogui.locateOnScreen('skills/bm/multi.png', confidence=0.8, region=(201, 387, 1516, 583))
+        plasma = pyautogui.locateOnScreen('skills/bm/plasmacannon.png', confidence=0.80, region=(201, 387, 1516, 583))
+        emp = pyautogui.locateOnScreen('skills/bm/energyparasite.png', confidence=0.80, region=(201, 387, 1516, 583))
+        sidearm = pyautogui.locateOnScreen('skills/sidearm.png', confidence=0.85, region=(201, 387, 1516, 583))
+        maelstrom = pyautogui.locateOnScreen('skills/bm/maelstrom.png', confidence=0.85, region=(201, 387, 1516, 583))
+
+
+        if reflex != None:
+            useSkillSelf(reflex)
+        elif plasma != None:
+            useSkillEnemy(plasma)
         elif botspecial != None:
             useSkillEnemy(botspecial)
         elif emp != None:
             useSkillEnemy(emp)
-        elif aux != None:
-            useSkillEnemy(aux)
+        elif maelstrom != None:
+            useSkillEnemy(maelstrom)
+        elif sidearm != None:
+            useSkillEnemy(sidearm)
         elif strike != None:
             useSkillEnemy(strike)
 
     if battleDrop:
         pyautogui.click(battleDrop)
+
+    checkForPopupExit()
 
     if victory:
         myStats.wins += 1
@@ -158,14 +172,19 @@ def checkForCancelButton():
         pyautogui.click(cancel)
 
 def useWarBomb(target):
-    warBomb = pyautogui.locateOnScreen('icons/warbomb.png', confidence=0.7)
 
     for x in range(10):
         pyautogui.click(target)
-        time.sleep(1)
-        pyautogui.click(warBomb)
-        checkForDefaultExit()
-        checkForCancelButton()
+        time.sleep(0.5)
+        warBomb = pyautogui.locateOnScreen('icons/warbomb.png', confidence=0.7)
+        if warBomb != None:
+            pyautogui.click(warBomb)
+            time.sleep(1)
+            checkForDefaultExit()
+            checkForCancelButton()
+        else:
+            checkForDefaultExit()
+            checkForCancelButton()
 
 def dropAllWarBombs():
     warTarget = pyautogui.locateOnScreen('icons/wartarget.png', confidence=0.7)
@@ -191,7 +210,6 @@ def dropAllWarBombs():
         time.sleep(1)
         dropAllWarBombs()
 
-
 def main():
     myStats = stats.Stats(0, 0)
     searchingStatus = False
@@ -215,12 +233,17 @@ def main():
 
         exitStatus = True
 
+        checkForPopupExit()
+
         while exitting(exitStatus):
             pass
 
         searchingStatus = False
 
         time.sleep(3)
+
+        checkForDefaultExit()
+        checkForCancelButton()
         
         if (myStats.wins > 0) and (myStats.wins % 10 == 0):
             dropAllWarBombs()
