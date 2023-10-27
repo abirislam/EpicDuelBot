@@ -72,28 +72,23 @@ def battling(battleStatus, myStats):
 
     if myTurn:
         myStats.totalRounds += 1
-        botspecial = pyautogui.locateOnScreen('skills/botspecial.png', confidence=0.8, region=(201, 387, 1516, 583))
-        reflex = pyautogui.locateOnScreen('skills/bm/reflexboost.png', confidence=0.85, region=(201, 387, 1516, 583))
-        strike = pyautogui.locateOnScreen('skills/strike.png', confidence=0.8, region=(201, 387, 1516, 583))
-        # aux = pyautogui.locateOnScreen('skills/bazooka.png', confidence=0.8, region=(201, 387, 1516, 583))
-        multi = pyautogui.locateOnScreen('skills/bm/multi.png', confidence=0.8, region=(201, 387, 1516, 583))
-        plasma = pyautogui.locateOnScreen('skills/bm/plasmacannon.png', confidence=0.80, region=(201, 387, 1516, 583))
-        emp = pyautogui.locateOnScreen('skills/bm/energyparasite.png', confidence=0.80, region=(201, 387, 1516, 583))
+        reflex = pyautogui.locateOnScreen('skills/bh/reflex.png', confidence=0.85, region=(201, 387, 1516, 583))
+        multi = pyautogui.locateOnScreen('skills/bh/multi.png', confidence=0.8, region=(201, 387, 1516, 583))
+        engBooster = pyautogui.locateOnScreen('skills/engbooster.png', confidence=0.9, region=(201, 387, 1516, 583))
         sidearm = pyautogui.locateOnScreen('skills/sidearm.png', confidence=0.85, region=(201, 387, 1516, 583))
-        maelstrom = pyautogui.locateOnScreen('skills/bm/maelstrom.png', confidence=0.85, region=(201, 387, 1516, 583))
+        strike = pyautogui.locateOnScreen('skills/strike.png', confidence=0.8, region=(201, 387, 1516, 583))
+        aux = pyautogui.locateOnScreen('skills/bazooka.png', confidence=0.85, region=(201, 387, 1516, 583))
 
         if reflex != None:
             useSkillSelf(reflex)
-        elif plasma != None:
-            useSkillEnemy(plasma)
-        elif botspecial != None:
-            useSkillEnemy(botspecial)
-        elif emp != None:
-            useSkillEnemy(emp)
-        elif maelstrom != None:
-            useSkillEnemy(maelstrom)
+        elif multi != None:
+            useSkillEnemy(multi)
         elif sidearm != None:
             useSkillEnemy(sidearm)
+        elif engBooster != None:
+            useSkillEnemy(engBooster)
+        elif aux != None:
+            useSkillEnemy(aux)   
         elif strike != None:
             useSkillEnemy(strike)
 
