@@ -65,18 +65,13 @@ def searchingCheck(searching):
 # Check if its our turn, use a skill, wait
 # Always targets left enemy first
 def battling(battleStatus, myStats):
-    # 1516 x 583, 201, 387
-    # skill variables
-
-    # all icons
-    # player = pyautogui.locateOnScreen('icons/player.png', confidence=0.8)
     victory = pyautogui.locateOnScreen('icons/victory.png', confidence=0.8)
     defeat = pyautogui.locateOnScreen('icons/defeat.png', confidence=0.8)
     myTurn = pyautogui.locateOnScreen('icons/myturn.png', confidence=0.9)
     battleDrop = pyautogui.locateOnScreen('icons/battledrop.png', confidence=0.8)
 
-    # Skill Priority: Multi > Firebolt > Robot > 
     if myTurn:
+        myStats.totalRounds += 1
         botspecial = pyautogui.locateOnScreen('skills/botspecial.png', confidence=0.8, region=(201, 387, 1516, 583))
         reflex = pyautogui.locateOnScreen('skills/bm/reflexboost.png', confidence=0.85, region=(201, 387, 1516, 583))
         strike = pyautogui.locateOnScreen('skills/strike.png', confidence=0.8, region=(201, 387, 1516, 583))
@@ -86,7 +81,6 @@ def battling(battleStatus, myStats):
         emp = pyautogui.locateOnScreen('skills/bm/energyparasite.png', confidence=0.80, region=(201, 387, 1516, 583))
         sidearm = pyautogui.locateOnScreen('skills/sidearm.png', confidence=0.85, region=(201, 387, 1516, 583))
         maelstrom = pyautogui.locateOnScreen('skills/bm/maelstrom.png', confidence=0.85, region=(201, 387, 1516, 583))
-
 
         if reflex != None:
             useSkillSelf(reflex)
@@ -211,7 +205,7 @@ def dropAllWarBombs():
         dropAllWarBombs()
 
 def main():
-    myStats = stats.Stats(0, 0)
+    myStats = stats.CurrentSession()
     searchingStatus = False
     battlingStatus = False
     exitStatus = False
