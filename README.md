@@ -10,12 +10,14 @@ This program requires the following to run:
 ```pip install -r requirements.txt```
 
 ## Guide to use
-This build assumes you're going to be running the following build:
+The bot lets you customize your own build. I have provided two builds that I felt work well juggernaut format. The first build bmFullTech should be used until LR10, upon which you should switch to bhFullDex after allocating points into NPC Armor. To switch your build, edit the code in main.py under the comment "edit build here".
 ![Build Image](icons/image.png)
-- There are better, more optimized builds out there but I felt that this worked the best with the randomness of the bot's image recognition.
+![Build Image](icons/build2.png)
 - Overall, just clone the repo and then run main.py
-- If the bot goes haywire and you lose control of your mouse, you can do Ctrl + Alt + Delete to activate failsafe and regain control of your PC.
-- Epic Duel must be fullscreen on your primary window, and it should be 1920x1080.
+- Make sure you are in the main directory when running the code, else the program will not be able to find the image files.
+- Epic Duel must be maximized on your primary monitor, and it should be 1920x1080.
+- If the bot goes haywire and you lose control of your mouse, you can either move the mouse to a corner of your screen or press CTRL + ALT + DELETE.
+
 
 ## Other notes
 Feel free to add or change things to the bot, I can merge your pull requests if you feel like it's a good improvement.

@@ -71,6 +71,7 @@ def battling(battleStatus, myStats):
     battleDrop = pyautogui.locateOnScreen('icons/battledrop.png', confidence=0.8)
 
     if myTurn:
+        # edit build here
         myStats.totalRounds += 1
         reflex = pyautogui.locateOnScreen('skills/bh/reflex.png', confidence=0.85, region=(201, 387, 1516, 583))
         multi = pyautogui.locateOnScreen('skills/bh/multi.png', confidence=0.8, region=(201, 387, 1516, 583))
