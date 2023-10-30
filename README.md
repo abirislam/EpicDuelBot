@@ -10,6 +10,7 @@ This program requires the following to run:
 ```pip install -r requirements.txt```
 
 ## Guide to use
+- EpicDuel settings: Best graphics, Language: English, War Notifs + Leaderboard Updates OFF, Fastest Performance (Slider all the way right). Low Performance ones are up to you.
 The bot lets you customize your own build. I have provided two builds that I felt work well juggernaut format. The first build bmFullTech should be used until LR10, upon which you should switch to bhFullDex after allocating points into NPC Armor. To switch your build, edit the code in main.py under the comment "edit build here".
 ![Build Image](icons/image.png)
 ![Build Image](icons/build2.png)
