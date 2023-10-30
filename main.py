@@ -192,6 +192,7 @@ def dropAllWarBombs():
     elif warTarget3 != None:
         useWarBomb(warTarget3)
     else:
+        pyautogui.click(384, 738) # to see if current avatar is in front of war target
         checkForDefaultExit()
         checkForCancelButton()
         pyautogui.click(warIcon)
