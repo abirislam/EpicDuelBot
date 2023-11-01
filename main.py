@@ -75,10 +75,9 @@ def battling(battleStatus, myStats):
         myStats.totalRounds += 1
         reflex = pyautogui.locateOnScreen('skills/bh/reflex.png', confidence=0.85, region=(201, 387, 1516, 583))
         multi = pyautogui.locateOnScreen('skills/bh/multi.png', confidence=0.8, region=(201, 387, 1516, 583))
-        engBooster = pyautogui.locateOnScreen('skills/engbooster.png', confidence=0.9, region=(201, 387, 1516, 583))
+        engBooster = pyautogui.locateOnScreen('skills/engbooster.png', confidence=0.80, region=(201, 387, 1516, 583))
         sidearm = pyautogui.locateOnScreen('skills/sidearm.png', confidence=0.85, region=(201, 387, 1516, 583))
         strike = pyautogui.locateOnScreen('skills/strike.png', confidence=0.8, region=(201, 387, 1516, 583))
-        aux = pyautogui.locateOnScreen('skills/bazooka.png', confidence=0.85, region=(201, 387, 1516, 583))
 
         if reflex != None:
             useSkillSelf(reflex)
@@ -88,8 +87,6 @@ def battling(battleStatus, myStats):
             useSkillEnemy(sidearm)
         elif engBooster != None:
             useSkillEnemy(engBooster)
-        elif aux != None:
-            useSkillEnemy(aux)   
         elif strike != None:
             useSkillEnemy(strike)
 
@@ -193,6 +190,7 @@ def dropAllWarBombs():
         useWarBomb(warTarget3)
     else:
         pyautogui.click(384, 738) # to see if current avatar is in front of war target
+        time.sleep(2)
         checkForDefaultExit()
         checkForCancelButton()
         pyautogui.click(warIcon)
